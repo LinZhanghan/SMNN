@@ -42,7 +42,7 @@ The settings file (`mnist/model_settings.py`) contains the following input argum
 You can train the model with,
 
 ```
-python main.py 
+python minist/main.py 
 ```
 
  The training losses will and test accuracy be storaged in `train_losses` and `acc`.
@@ -71,7 +71,7 @@ The settings file (`mante/model_settings.py`) contains the following input argum
 You can train the model with,
 
 ```
-python main.py 
+python mante/main.py 
 ```
 
  The training losses will be storaged in `l` and a test plot over 100 trials will be drawn.
