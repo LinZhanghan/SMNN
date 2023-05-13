@@ -37,31 +37,48 @@ The settings file (`mnist/model_settings.py`) contains the following input argum
   - `dt`: time internal.
   - `train_loader`: data loader for training.
   - `test_loader`: data loader for testing.
+  - `optmizer`: optimizer.
 
-You can train the model with. The training losses will be storaged in `L`.
+You can train the model with,
+
 ```
 python main.py 
 ```
 
+ The training losses will and test accuracy be storaged in `train_losses` and `acc`.
+ 
+ 
+### Contextual-dependent task
 
-### Mapping and Constructing LIF RNN
-Trained rate RNNs are used to construct LIF RNNs. The mapping and LIF simulations are performed in MATLAB.
-Given a trained rate model, the first step is to perform the grid search to determine the optimal scaling factor (lambda). This is done by `lambdad_grid_search.m`. Once the optimal scaling factor is determined, a LIF RNN can be constructed using the function `LIF_network_fnc.m`. All the required functions/scripts are located in `spiking/`.
+The settings file (`mante/model_settings.py`) contains the following input arguments:
+  - `P`: mode size.
+  - `hidden_shape`: number of neurons.
+  - `input_shape`: numbers of input signals.
+  - `output_shape`: output size.
+  - `n`: trials of training.
+  - `T`: time steps.
+  - `batchsize`: batch size for training.
+  - `device`: cpu or gpu device for running.
+  - `spike_grad`: surrogate delta function.
+  - `epochs_num`: epochs for each trials.
+  - `zero_time1`: zero time beform stimulus.
+  - `zero_time2`: zero time after stimulus.
+  - `target_zero`: target output of zero.
+  - `zero1`: zero input beform stimulus.
+  - `zero2`: zero input beform stimulus.
+  - `optmizer`: optimizer.
 
-An example script for evaluating a Go-NoGo LIF network (`eval_go_nogo.m`) is also included. The script constructs a LIF RNN trained to perform the Go-NoGo task and plots network responses. The script can be modified to evaluate models trained to perform other tasks.
+You can train the model with,
+
+```
+python main.py 
+```
+
+ The training losses will be storaged in `l` and a test plot over 100 trials will be drawn.
 
 ## Citation
 If you use this repo for your research, please cite our work:
 
 ```
-@article{Kim_2019,
-    Author = {Kim, Robert and Li, Yinghao and Sejnowski, Terrence J.},
-    Doi = {10.1073/pnas.1905926116},
-    Journal = {Proceedings of the National Academy of Sciences},
-    Number = {45},
-    Pages = {22811--22820},
-    Publisher = {National Academy of Sciences},
-    Title = {Simple framework for constructing functional spiking recurrent neural networks},
-    Volume = {116},
-    Year = {2019}}
+to be decided
 ```
