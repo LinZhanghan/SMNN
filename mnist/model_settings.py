@@ -2,7 +2,9 @@ import torch
 from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from snntorch import surrogate
+
 """
+
 Model settings for mnist task
 transform: transform method for mnist images
 data_path: data path for mnist dataset
@@ -18,6 +20,7 @@ spike_grad: surrogate delta function
 dt: time internal
 train_loader: data loader for training
 test_loader: data loader for testing
+
 """
 
 spike_grad = surrogate.fast_sigmoid()
