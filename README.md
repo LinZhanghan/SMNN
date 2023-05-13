@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository provides the code for the framework presented in [this paper](https://www.pnas.org/content/116/45/22811):
+This repository provides the code for the framework presented in [this paper](to be decided):
 
 to be decided
 
@@ -74,7 +74,7 @@ You can train the model with,
 python mante/main.py 
 ```
 
- The training losses will be storaged in `l` and a test plot over 100 trials will be drawn.
+ The training losses will be storaged in `L` and a test plot over 100 trials will be drawn.
 
 ## Citation
 If you use this repo for your research, please cite our work:
