@@ -20,6 +20,7 @@ spike_grad: surrogate delta function
 dt: time internal
 train_loader: data loader for training
 test_loader: data loader for testing
+optimizer: optimizer
 
 """
 
@@ -43,7 +44,7 @@ mnist_test = datasets.MNIST(data_path, train=False, download=True, transform=tra
 # Create DataLoaders
 train_loader = DataLoader(mnist_train, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(mnist_test, batch_size=500, shuffle=True)
-
+optimizer = torch.optim.Adam
 P=3
 hidden_shape=100
 
