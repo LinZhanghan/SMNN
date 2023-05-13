@@ -21,7 +21,7 @@ if __name__=="__main__":
     acc=[]
     print(model.parameters())
 
-    opt = torch.optim.Adam(model.parameters(), lr=0.001,betas=[0.9,0.999])
+    opt = optimizer(model.parameters(), lr=0.001,betas=[0.9,0.999])
    
 
     for epoch in np.arange(10*n+1):
