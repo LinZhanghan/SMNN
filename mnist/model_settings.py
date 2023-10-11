@@ -36,7 +36,7 @@ data_path='./data/mnist'
 time_steps = 100
 input_shape=784
 num_classes=10
-dt=0.2
+dt=2e-3
 batch_size = 256
 n=10
 mnist_train = datasets.MNIST(data_path, train=True, download=True, transform=transform)
