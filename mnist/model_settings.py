@@ -13,6 +13,7 @@ hidden_shape: number of neurons
 input_shape: numbers of input signals
 output_shape: output size
 n: trials of training
+time_steps: time steps
 batchsize: batch size for training
 device: cpu or gpu device for running
 spike_grad: surrogate delta function
