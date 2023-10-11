@@ -14,7 +14,8 @@ epochs_num: epochs for each trials
 zero_time1: zero time beform stimulus
 zero_time2: zero time after stimulus
 target_zero: target output of zero
-T: time steps
+time_steps: time steps
+dt: time internal
 zero1: zero input beform stimulus
 zero2: zero input beform stimulus
 batchsize: batch size for training
@@ -31,8 +32,9 @@ output_shape=1
 batchsize=100
 n=10
 epochs_num = 3
-T=500
+time_steps=500
 P=3
+dt=2e-3
 hidden_shape=100
 zero_time1=int(T/10)
 zero_time2=int(T/2)
