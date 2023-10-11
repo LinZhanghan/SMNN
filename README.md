@@ -79,4 +79,4 @@ python mante/main.py
 This code is the product of work carried out by the group of [PMI lab, Sun Yat-sen University](https://www.labxing.com/hphuang2018). If the code helps, consider giving us a shout-out in your publications.
 
 ## Contact
-If you have any question, please contact me via [linchh26@mail2.sysu.edu.cn](linchh26@mail2.sysu.edu.cn).
+If you have any question, please contact me via [a810845161@gmail.com](a810845161@gmail.com).
