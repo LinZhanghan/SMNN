@@ -270,5 +270,5 @@ def plot_projection(model,ax1,choose,a=30,b=-60):
     ax1.set_ylabel(r'$Y$',fontsize=30,labelpad=25)
     ax1.set_zlabel(r'$Z$',fontsize=30,labelpad=20)
     ax1.view_init(a,b)
-    ax1.legend(loc=(0.8,0.75),fontsize=20)
+    ax1.legend(loc=(0.8,0.75),fontsize=25)
     return input_data,targets

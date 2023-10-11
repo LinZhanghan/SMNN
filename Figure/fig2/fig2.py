@@ -156,43 +156,7 @@ plt.xlabel('Mode Size ($P$)',fontsize=30)
 plt.xscale('log')
 plt.ylim(91.5,100)
 
-
 #Figure 2d
-from matplotlib import transforms
-from matplotlib.gridspec import GridSpec
-model=MDL_RNN_mnist(input_shape,100,output_shape,10)
-_=model.load_state_dict(torch.load('Figure/mnist/saved_model/H_{}_P_{}_0.pth'.format(100,10)))
-_=model.to(device)
-loader = DataLoader(mnist_test, batch_size=1, shuffle=True)
-input_data,targets,_=generate_input(loader)
-with torch.no_grad():
-    o=model(input_data).flatten(0)
-spk=model.S.flatten(1).cpu()
-fig = plt.figure(facecolor="w", figsize=(12, 8))
-gs = GridSpec(3, 3, figure=fig)
-ax = fig.add_subplot(gs[0:2,0:2])
-splt.raster(spk, ax, s=10, c="chocolate")
-plt.gca().xaxis.set_visible(False)
-plt.ylabel('Neuron',fontsize=30)
-plt.ylim(-5,105)
-#plt.xlim(-10,510)
-ax = fig.add_subplot(gs[2,0:2])
-s1=plt.plot(torch.arange(spk.shape[0]),spk.sum(1)/100/2e-3,c='tan',linewidth=2,label='firing rate \n     (HZ)')
-plt.gca().set_xticklabels(['0','0','20','40','60','80','100'])
-plt.xlabel('Time (ms)',fontsize=30)
-
-ax = fig.add_subplot(gs[0:2,2:])
-base = plt.gca().transData
-rot = transforms.Affine2D().rotate_deg(-90)
-s2=plt.plot(torch.arange(spk.shape[1]),spk.sum(0)/0.1,label='firing times',linewidth=2,c='tan',transform=rot + base)
-plt.gca().yaxis.set_visible(False)
-plt.ylim(5,-105)
-fig.subplots_adjust(wspace=0,hspace=0)
-lns = s1
-labs = [l.get_label() for l in lns]
-plt.legend(lns, labs, ncol=1,loc=(0.02,-0.4),fontsize=25,frameon=True)
-
-#Figure 2e
 loader = DataLoader(mnist_test, batch_size=1, shuffle=True)
 data,_,_=generate_input(loader)
 with torch.no_grad():
@@ -227,3 +191,39 @@ plt.hlines(1,0,T*2,colors = "r",linewidth=5, linestyles = "dashed")
 plt.text(0,1.1,'$U_{thr}$',fontsize=20)
 plt.ylim(top=1.5)
 plt.legend(fontsize=25)
+
+
+#Figure 2e
+from matplotlib import transforms
+from matplotlib.gridspec import GridSpec
+model=MDL_RNN_mnist(input_shape,100,output_shape,10)
+_=model.load_state_dict(torch.load('Figure/mnist/saved_model/H_{}_P_{}_0.pth'.format(100,10)))
+_=model.to(device)
+loader = DataLoader(mnist_test, batch_size=1, shuffle=True)
+input_data,targets,_=generate_input(loader)
+with torch.no_grad():
+    o=model(input_data).flatten(0)
+spk=model.S.flatten(1).cpu()
+fig = plt.figure(facecolor="w", figsize=(12, 8))
+gs = GridSpec(3, 3, figure=fig)
+ax = fig.add_subplot(gs[0:2,0:2])
+splt.raster(spk, ax, s=10, c="chocolate")
+plt.gca().xaxis.set_visible(False)
+plt.ylabel('Neuron',fontsize=30)
+plt.ylim(-5,105)
+#plt.xlim(-10,510)
+ax = fig.add_subplot(gs[2,0:2])
+s1=plt.plot(torch.arange(spk.shape[0]),spk.sum(1)/100/2e-3,c='tan',linewidth=2,label='firing rate \n     (HZ)')
+plt.gca().set_xticklabels(['0','0','20','40','60','80','100'])
+plt.xlabel('Time (ms)',fontsize=30)
+
+ax = fig.add_subplot(gs[0:2,2:])
+base = plt.gca().transData
+rot = transforms.Affine2D().rotate_deg(-90)
+s2=plt.plot(torch.arange(spk.shape[1]),spk.sum(0)/0.1,label='firing times',linewidth=2,c='tan',transform=rot + base)
+plt.gca().yaxis.set_visible(False)
+plt.ylim(5,-105)
+fig.subplots_adjust(wspace=0,hspace=0)
+lns = s1
+labs = [l.get_label() for l in lns]
+plt.legend(lns, labs, ncol=1,loc=(0.02,-0.4),fontsize=25,frameon=True)

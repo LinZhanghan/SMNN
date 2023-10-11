@@ -113,8 +113,31 @@ for hidden_shape in [100]:
             _=model.to(device)
 test_plot(model)
 
-
 #Figure 3d
+U=model.U.cpu().detach()
+r=model.R.cpu().detach()
+r=r.reshape(r.shape[0],-1)
+U=U.reshape(U.shape[0],-1)
+index=torch.argmax(r,dim=0)
+Um=U[index,:].diag()
+U=U[:,U[-1,:]>0]
+U=U[:,:3]
+U=torch.where(U>1,1,U)
+fig = plt.figure(facecolor="w", figsize=(12,8),dpi=200)
+ax = fig.add_subplot(111)
+plt.plot(np.arange(T)*2,U)
+plt.xlabel('Time (ms)',fontsize=30)
+plt.ylabel('U',fontsize=30)
+plt.fill_between(np.arange(50,250)*2,torch.min(U)-3,5,color='grey',alpha=0.3)
+#plt.scatter(index[[10:13]]*2,Um[[10:13]],c='k',marker='^')
+plt.ylim(torch.min(U)-0.1,2)
+plt.hlines(0,0,T*2,colors = "k",linewidth=5, linestyles = "dashed")
+plt.text(0,-0.45,'$U_{res}$',fontsize=20)
+plt.hlines(1,0,T*2,colors = "r",linewidth=5, linestyles = "dashed")
+plt.text(0,1.15,'$U_{thr}$',fontsize=20)
+
+
+#Figure 3e
 from matplotlib import transforms
 from matplotlib.gridspec import GridSpec
 input_data,targets=generate_inputs()
@@ -147,26 +170,3 @@ fig.subplots_adjust(wspace=0,hspace=0)
 lns = s1
 labs = [l.get_label() for l in lns]
 plt.legend(lns, labs, ncol=1,loc=(0.02,-0.4),fontsize=25,frameon=True)
-
-#Figure 3e
-U=model.U.cpu().detach()
-r=model.R.cpu().detach()
-r=r.reshape(r.shape[0],-1)
-U=U.reshape(U.shape[0],-1)
-index=torch.argmax(r,dim=0)
-Um=U[index,:].diag()
-U=U[:,U[-1,:]>0]
-U=U[:,:3]
-U=torch.where(U>1,1,U)
-fig = plt.figure(facecolor="w", figsize=(12,8),dpi=200)
-ax = fig.add_subplot(111)
-plt.plot(np.arange(T)*2,U)
-plt.xlabel('Time (ms)',fontsize=30)
-plt.ylabel('U',fontsize=30)
-plt.fill_between(np.arange(50,250)*2,torch.min(U)-3,5,color='grey',alpha=0.3)
-#plt.scatter(index[[10:13]]*2,Um[[10:13]],c='k',marker='^')
-plt.ylim(torch.min(U)-0.1,2)
-plt.hlines(0,0,T*2,colors = "k",linewidth=5, linestyles = "dashed")
-plt.text(0,-0.45,'$U_{res}$',fontsize=20)
-plt.hlines(1,0,T*2,colors = "r",linewidth=5, linestyles = "dashed")
-plt.text(0,1.15,'$U_{thr}$',fontsize=20)
