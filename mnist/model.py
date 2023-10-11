@@ -191,6 +191,7 @@ class rate_RNN_mnist(nn.Module):
         batch_size=x.shape[0]
         
         taum=torch.tensor(20e-3)
+        lm=torch.exp(-dt/taum).to(device)
         
         Wr=torch.matmul(self.l*self.pin,self.pout.T).to(device)
         
@@ -200,7 +201,7 @@ class rate_RNN_mnist(nn.Module):
         
         for i in range(time_steps):
             I=torch.matmul(self.Win,spk_in[i])+torch.matmul(Wr,torch.tanh(mem))
-            mem= (-mem + I)*dt/taum
+            mem = lm*mem+(1-lm)*I
             U.append(mem)
             R.append(torch.tanh(mem))
             
