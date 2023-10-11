@@ -34,7 +34,7 @@ The settings file (`mnist/model_settings.py`) contains the following input argum
   - `batchsize`: batch size for training.
   - `device`: cpu or gpu device for running.
   - `spike_grad`: surrogate delta function.
-  - `dt`: time internal.
+  - `dt`: time interval.
   - `train_loader`: data loader for training.
   - `test_loader`: data loader for testing.
   - `optmizer`: optimizer.
@@ -64,7 +64,7 @@ The settings file (`mante/model_settings.py`) contains the following input argum
   - `zero_time1`: zero time beform stimulus.
   - `zero_time2`: zero time after stimulus.
   - `target_zero`: target output of zero.
-  - `dt`: time internal.
+  - `dt`: time interval.
   - `zero1`: zero input beform stimulus.
   - `zero2`: zero input beform stimulus.
   - `optmizer`: optimizer.
