@@ -4,9 +4,7 @@
 
 This repository provides the code for the framework presented in [this paper](to be decided):
 
-to be decided
-
-Preprint available [here](to be decided).
+Here, given the current revolution of AI techniques (e.g., Chat GPT), a new learning framework named mode decomposition learning (MDL) is introduced, calling for a rethinking of conventional weight-based deep learning through the lens of cheap and interpretable mode-based learning. MDL explains the network performance with the leading modes, displaying a striking piecewise power-law behavior.
 
 ## Requirements
 
@@ -18,7 +16,7 @@ The code for constructing and training  is implemented in Python (tested in Pyth
 
 
 ## Usage
-The code for training models for mnist task is located in `mnist/`, while the code for tranning models for contextual-dependent task is in `mante/`.
+The code for training models for mnist task is located in `mnist/`, while the code for tranning models for contextual-dependent task is in `mante/`. Code for plotting Figure is in `Figure/`.
 
 ### Mnist task
 
