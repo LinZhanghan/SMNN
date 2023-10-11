@@ -69,7 +69,8 @@ class MDL_RNN_mante(nn.Module):
             batch_size=x.shape[1]
         else:
             batch_size=1
-
+        time_steps=x.shape[0]
+        
         vthr=torch.tensor(1.0)
         taus=torch.tensor(10e-3)
         taum=torch.tensor(20e-3)
@@ -196,7 +197,8 @@ class rate_RNN_mante(nn.Module):
             batch_size=x.shape[1]
         else:
             batch_size=1
-
+        time_steps=x.shape[0]
+        
         taum=torch.tensor(20e-3)
         lm=torch.exp(-dt/taum).to(device)
         
