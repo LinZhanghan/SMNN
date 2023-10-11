@@ -1,6 +1,6 @@
-# MDL RNNs
+# SMNN
 
-## SMNN model
+## Overview
 
 This repository provides the code for the framework presented in [this paper](to be decided):
 
