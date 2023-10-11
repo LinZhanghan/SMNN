@@ -17,7 +17,7 @@ time_steps: time steps
 batchsize: batch size for training
 device: cpu or gpu device for running
 spike_grad: surrogate delta function
-dt: time internal
+dt: time interval
 train_loader: data loader for training
 test_loader: data loader for testing
 optimizer: optimizer
