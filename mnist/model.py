@@ -1,9 +1,5 @@
 import torch
 import torch.nn as nn
-import snntorch as snn
-import torch.nn.functional as F
-import numpy as np
-from torch.nn import init
 from model_settings import *
 
 # Define Network
@@ -15,21 +11,20 @@ class MDL_RNN_mnist(nn.Module):
 
     """
 
-    def __init__(self,input_shape, hidden_shape,output_shape,P):
+    def __init__(self,input_shape, hidden_shape,output_shape,P,,filter='single'):
 
         """
 
         num_inputs: input size
         num_hidden: number of hidden neurons
         num_outputs: output size
+        filter: synaptic filter
         P: mode size
-        fc1: input layer
-        fv2: output layer
+        Win: input matrix
+        Wout: output matrix
         pin: input mode
         pout: output mode
         l: connectivity importance
-        lif: LIF neurons
-        filter: linear kernel 
 
         """    
 
@@ -37,21 +32,13 @@ class MDL_RNN_mnist(nn.Module):
         self.num_inputs = input_shape
         self.num_hidden = hidden_shape
         self.num_outputs = output_shape
+        self.filter=filter
         self.P=P
-        self.fc1 = nn.Linear(self.num_inputs, self.num_hidden)
-        self.fc2 = nn.Linear(self.num_hidden,self.num_outputs)
-        self.pin=torch.nn.Parameter(torch.randn(size=(self.num_hidden,self.P)),requires_grad=True)
-        self.pout=torch.nn.Parameter(torch.randn(size=(self.num_hidden,self.P)),requires_grad=True)
-        self.l=torch.nn.Parameter(torch.zeros(size=(self.num_hidden,1)),requires_grad=True)
-        self.lif=snn.Leaky(beta=0.9,threshold=0.1,spike_grad=spike_grad,learn_beta=False)
-        self.softmax=torch.nn.Softmax(-1)
-        self.conv=F.conv1d
-        self.matmul=torch.matmul
-        self.max=torch.max
-        self.stack=torch.stack
-        #Kernel construction
-        self.filter=self.linar_filter(torch.arange(0,time_steps-1)*dt).flip(0).reshape(1,1,-1).to(device)
-        self.filter=torch.repeat_interleave(self.filter,self.num_hidden,0)
+        self.Win=torch.nn.Parameter(torch.randn(size=(self.hidden_shape,self.input_shape)),requires_grad=True)
+        self.Wout=torch.nn.Parameter(torch.randn(size=(self.output_shape,self.hidden_shape)),requires_grad=True)
+        self.pin=torch.nn.Parameter(torch.randn(size=(self.hidden_shape,self.P)),requires_grad=True)
+        self.pout=torch.nn.Parameter(torch.randn(size=(self.hidden_shape,self.P)),requires_grad=True)
+        self.l=torch.nn.Parameter(torch.zeros(size=[self.P]),requires_grad=True)
 
     def forward(self, x):
 
