@@ -97,7 +97,7 @@ for hidden_shape in N_range:
             model=MDL_RNN_mnist(input_shape,hidden_shape,output_shape,P,filter)
             _=model.load_state_dict(torch.load('Figure/mnist/saved_model/H_{}_P_{}_{}.pth'.format(hidden_shape,P,i)))
             _=model.to(device)
-            accuracy=torch.load('./{}/H_{}_P_{}_{}.pth'.format('acc',hidden_shape,P,i))
+            accuracy=torch.load('Figure/mnist/{}/H_{}_P_{}_{}.pth'.format('acc',hidden_shape,P,i))
             if accuracy[-1]<0.89: continue
             for n in range(2):
                 acc.append(test(model,3000).cpu())
