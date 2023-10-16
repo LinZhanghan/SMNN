@@ -10,19 +10,18 @@ name='train_loss'
 fig=plt.figure(figsize=(10,8),dpi=200)
 ax1=fig.add_subplot(111)
 name='train_loss'
-c=['steelblue','deepskyblue','skyblue','lightskyblue']
-c=['lightcoral','indianred','firebrick','darkred']
-c=['tan','peru','darkorange','chocolate']
-for hidden_shape in [100,200]:
+c=['#3cb44b','#4363d8']
+N_range=[100,200]
+for hidden_shape in N_range:
     R=[]
     L=[]
     j=np.argwhere(np.array(N_range)==hidden_shape)[0,0]
     P=30
     for i in range(3):
         model=MDL_RNN_mnist(input_shape,hidden_shape,output_shape,P,'double')
-        _=model.load_state_dict(torch.load('Figure/mnist/model/H_{}_P_{}_{}.pth'.format(hidden_shape,P,i)))
+        _=model.load_state_dict(torch.load('./model/H_{}_P_{}_{}.pth'.format(hidden_shape,P,i)))
         _=model.to(device)
-        a=torch.load('Figure/mnist/{}/H_{}_P_{}_{}.pth'.format(name,hidden_shape,P,i))
+        a=torch.load('./{}/H_{}_P_{}_{}.pth'.format(name,hidden_shape,P,i))
         if a[-1]>=70: continue
         r=rank(model)
         r,indces=torch.sort(r)
@@ -46,8 +45,6 @@ for hidden_shape in [100,200]:
     ax.plot(torch.arange(mean.shape[0])+1,mean,c=c[j],linewidth=3)            
     ax.fill_between(torch.arange(std.shape[0])+1,mean-std,mean+std,color=c[j],alpha=0.3)
     ax.plot([],[],c='deepskyblue')
-    ax.vlines(10,0.4,4.5,linestyle='--',linewidth=2,color='salmon')
-    ax.vlines(18,0.4,4.5,linestyle='--',linewidth=2,color='salmon')
     ax.set_xscale('log')
     ax.set_yscale('log')
     ax.set_ylim(top=4.5,bottom=0.4)
@@ -56,10 +53,14 @@ for hidden_shape in [100,200]:
     ax.set_xticks([1,10])
     ax.set_xlabel('Rank',fontsize=25)
     ax.set_ylabel(r'$\tau$',fontsize=25)
-    for d1,d2 in [[0,10],[10,18]]:
-        x=torch.arange(mean.shape[0])[d1:d2].numpy()
+    if hidden_shape==100:
+        d_range=[[0,9],[9,19]]
+    else:
+        d_range=[[0,10],[10,18]]
+    for d1,d2 in d_range:
+        x=torch.arange(mean.shape[0])[d1:d2].numpy()+1
         y=mean[d1:d2].numpy()
-        x=np.log(x+1)
+        x=np.log(x)
         y=np.log(y)
         from scipy.optimize import curve_fit
         def func(x, a,b):
@@ -68,14 +69,25 @@ for hidden_shape in [100,200]:
         popt, pcov = curve_fit(func, x, y,p0=p0)
         yvals = func(x,*popt)
         #plt.plot(x,y)
-        plt.plot(np.exp(x), np.exp(yvals), '-.',c='grey',linewidth=3)
-        plt.text(np.exp(x[int((d2-d1)/6)]-0.5),np.exp(yvals[int((d2-d1)/6)])*1.8-2.1,r'slope$\approx$'+'{:.2f}'.format(popt[0]),fontsize=12)
+        ax.plot(np.exp(x), np.exp(yvals), '-.',c='grey',linewidth=3)
+        if d1==0:
+            ax.text(np.exp(x[int((d2-d1)/6)]-0.5),np.exp(yvals[int((d2-d1)/6)])*2-3,r'slope$\approx$'+'{:.2f}'.format(popt[0]),fontsize=12)
+        else:
+            ax.text(np.exp(x[int((d2-d1)/6)]-0.5),np.exp(yvals[int((d2-d1)/6)])*2.15-2.8,r'slope$\approx$'+'{:.2f}'.format(popt[0]),fontsize=12)
         #R2
         ybar=np.sum(y)/len(y)
         ssreg=np.sum((yvals-ybar)**2)
         sstot=np.sum((y-ybar)**2)
         a=ssreg/sstot
         print(a)
-    
-    
+
+ax.vlines(9,0.4,4.5,linestyle='--',linewidth=2,color=c[0])
+ax.vlines(19,0.4,4.5,linestyle='--',linewidth=2,color=c[0])
+ax.vlines(10,0.4,4.5,linestyle='--',linewidth=2,color=c[1])
+ax.vlines(18,0.4,4.5,linestyle='--',linewidth=2,color=c[1])
+ax.text(7.8,0.45,'$9$',fontsize=10,color=c[0])
+ax.text(19,0.45,'$19$',fontsize=10,color=c[0])
+ax.text(10,0.45,'$10$',fontsize=10,color=c[1])
+ax.text(14,0.45,'$18$',fontsize=10,color=c[1])
+
 ax1.legend(fontsize=25,ncol=2,columnspacing=0.4)
