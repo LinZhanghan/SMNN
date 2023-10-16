@@ -17,9 +17,9 @@ for hidden_shape in [30,100,200]:
     for P in [200]:
         for i in range(3):
             model=MDL_RNN_mnist(input_shape,hidden_shape,output_shape,P,'double')
-            _=model.load_state_dict(torch.load('Figure/mante/model/H_{}_P_{}_{}.pth'.format(hidden_shape,P,i)))
+            _=model.load_state_dict(torch.load('Figure/mnist/model/H_{}_P_{}_{}.pth'.format(hidden_shape,P,i)))
             _=model.to(device)
-            a=torch.load('Figure/mante/{}/H_{}_P_{}_{}.pth'.format(name,hidden_shape,P,i))
+            a=torch.load('Figure/mnist/{}/H_{}_P_{}_{}.pth'.format(name,hidden_shape,P,i))
             if a[-1]>=70: continue
             r=rank(model)
             r,indces=torch.sort(r)
@@ -34,12 +34,9 @@ for hidden_shape in [30,100,200]:
     ax1.fill_between(torch.arange(std.shape[0]),mean-std,mean+std,color=c[j],alpha=0.3)
     mean=torch.mean(R,0)
     std=torch.std(R,0)
-    #ax1.plot(torch.arange(mean.shape[0]),mean,c='deepskyblue')            
-    #ax1.fill_between(torch.arange(std.shape[0]),mean-std,mean+std,color='skyblue',alpha=0.3)
-    #ax1.plot([],[],c='deepskyblue',label=r'$\tau$')
     ax1.plot([],[],c=c[j],label='N={}'.format(hidden_shape),linewidth=3)
     ax1.set_xlabel('Rank',fontsize=30)
-    ax1.set_ylabel('$|\Sigma|$',fontsize=30)
+    ax1.set_ylabel('$|\lambda_{\mu}|$',fontsize=30)
     
     ax1.set_ylim(-0.1,3)
 
@@ -48,9 +45,12 @@ for hidden_shape in [30,100,200]:
     ax.plot(torch.arange(mean.shape[0]),mean,c=c[j],linewidth=3)            
     ax.fill_between(torch.arange(std.shape[0]),mean-std,mean+std,color=c[j],alpha=0.3)
     ax.plot([],[],c='deepskyblue')
-    ax.vlines(4,-0.1,3,linestyle='--',linewidth=2)
-    ax.vlines(180,-0.1,3,linestyle='--',linewidth=2)
+    ax.vlines(180,0.1,6,linestyle='--',linewidth=2,color='salmon')
     ax.set_xscale('log')
+    ax.set_yscale('log')
+    ax.set_yticks([0.5,1,2])
+    ax.set_yticklabels([0.5,1,2])
+    ax.set_ylim(top=6,bottom=0.1)
     ax.set_xlabel('Rank',fontsize=25)
     ax.set_ylabel(r'$\tau$',fontsize=25)
     ax.xaxis.set_ticks([1,10,100])
