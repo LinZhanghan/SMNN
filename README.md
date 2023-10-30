@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository provides the code for the framework presented in [this paper](to be decided):
+This repository provides the code for the framework presented in [[Spiking mode-based neural networks](https://arxiv.org/abs/2310.14621)]:
 
 Given the current revolution of AI techniques (e.g., Chat GPT), a new learning framework named mode decomposition learning (MDL) is introduced, calling for a rethinking of conventional weight-based deep learning through the lens of cheap and interpretable mode-based learning. The combination of MDL and Spiking Neural Network (SNN) is more energy-efficient and efficient, and can achieve complex contextual integration and image recognition tasks. MDL projects the hign-dimensional network performance into low-dimensional to visualize and analysis, displaying a attractor phenomenon and a striking piecewise power-law behavior.
 
