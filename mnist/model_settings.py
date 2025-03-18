@@ -59,3 +59,4 @@ optimizer = torch.optim.Adam
 vthr=torch.tensor(1.0)
 tau_m=torch.tensor(20)
 tau_d=torch.tensor(30)
+tau_r=torch.tensor(2)
