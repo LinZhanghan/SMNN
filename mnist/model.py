@@ -96,7 +96,7 @@ class MDL_RNN_mnist(nn.Module):
         I = torch.zeros(size=(batch_size,self.hidden_shape,1)).to(device)
         mem = torch.zeros(size=(batch_size,self.hidden_shape,1)).to(device)
         s = torch.zeros(size=(batch_size,self.hidden_shape,1)).to(device)
-        lm=torch.exp(-dt/taum).to(device)
+        lm=torch.exp(-dt/tau_m).to(device)
         ld=torch.exp(-dt/tau_d).to(device)
         r = torch.zeros(size=(self.hidden_shape,1)).to(device)
 
@@ -250,7 +250,7 @@ class rate_RNN_mnist(nn.Module):
         #Generate output
         rout=torch.matmul(self.Wout,rm)
         output = torch.softmax(rout,1)
-        return y
+        return output
     
     def initialize(self):
 
