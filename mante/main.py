@@ -19,12 +19,11 @@ if __name__=='__main__':
     opt=optimizer(model.parameters(), lr=1e-3,betas=[0.9,0.999])
     for trial in np.arange(n):
         _=model.train()
-        L.append(model.l.cpu().detach())
         input_data,targets=generate_batch(batchsize)
         for epoch in np.arange(epochs_num):
             loss=train(model,targets,input_data,opt)
             print(loss)
         train_losses.append(loss)
         print(trial,train_losses[-1])
-    torch.save(train_losses, "./train_loss/H_{}_P_{}_{}.pth".format(hidden_shape,P,N))
+    torch.save(train_losses, "./train_loss/H_{}_P_{}_{}.pth".format(hidden_shape,P,0))
     test(model)
