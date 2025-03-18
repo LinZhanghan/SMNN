@@ -37,7 +37,7 @@ if __name__=="__main__":
         if epoch%10==0: 
             print("epoch {} train loss: ".format(epoch),train_losses[-1])
             acc.append(test(model).cpu())
-        torch.save(train_losses, "./train_loss/H_{}_P_{}_{}.pth".format(hidden_shape,P,N))
-        torch.save(acc, "./acc/H_{}_P_{}_{}.pth".format(hidden_shape,P,N))
+        torch.save(train_losses, "./train_loss/H_{}_P_{}_{}.pth".format(hidden_shape,P,0))
+        torch.save(acc, "./acc/H_{}_P_{}_{}.pth".format(hidden_shape,P,0))
     
 
