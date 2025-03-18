@@ -21,13 +21,13 @@ if __name__=="__main__":
     acc=[]
     print(model.parameters())
 
-    opt = optimizer(model.parameters(), lr=0.001,betas=[0.9,0.999])
+    opt = optimizer(model.parameters(), lr=0.005,betas=[0.9,0.999])
    
 
     for epoch in np.arange(10*n+1):
         _=model.train()
         loss=0
-        for i in range(5):
+        for i in range(100):
             examples = enumerate(train_loader)
             batch_idx, (example_data, example_targets) = next(examples)
             example_data=example_data.reshape((batch_size,28,28)).to(device)
