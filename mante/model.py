@@ -1,7 +1,7 @@
-import snntorch as snn
 import torch
 import torch.nn as nn
 import numpy as np
+from snntorch import spikegen
 from torch.nn import init
 from model_settings import *
 
