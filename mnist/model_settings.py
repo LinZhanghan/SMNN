@@ -57,5 +57,5 @@ P=3
 hidden_shape=100
 optimizer = torch.optim.Adam
 vthr=torch.tensor(1.0)
-taum=torch.tensor(20)
+tau_m=torch.tensor(20)
 tau_d=torch.tensor(30)
