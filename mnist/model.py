@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-import snntorch as snn
+from snntorch import spikegen
 import torch.nn.functional as F
 import numpy as np
 from torch.nn import init
@@ -110,7 +110,7 @@ class MDL_RNN_mnist(nn.Module):
                 h=lr*h+dt/tau_d/tau_r*s
                 r=ld*r+dt*h  
             if self.replace:
-                s=spike_grad_(mem-vthr)
+                s=spike_grad_approx(mem-vthr)
             else:
                 s=spike_grad(mem-vthr)
             tlast=tlast+(dt*i-tlast)*s
