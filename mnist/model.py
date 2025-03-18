@@ -88,7 +88,6 @@ class MDL_RNN_mnist(nn.Module):
         batch_size=inputs.shape[0]
         spk_in = spikegen.rate(inputs.flatten(1),T).reshape(T,-1,784,1)
         if self.filter=='double': 
-            tau_r=torch.tensor(2)
             lr=torch.exp(-dt/tau_r).to(device)
             h = torch.zeros(size=(self.hidden_shape,1)).to(device)
         tref=self.tref
